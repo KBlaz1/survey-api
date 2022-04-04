@@ -4,30 +4,32 @@ import srv.api.com.answeroption.domain.model.AnswerOption;
 import srv.api.com.answeroption.domain.model.AnswerOptionID;
 import srv.api.com.question.domain.model.QuestionID;
 
+import java.util.UUID;
+
 public class GetAnswerOptionDTO {
 
-    private AnswerOptionID answerOptionID;
+    private UUID id;
 
-    private String answerOptionText;
+    private String text;
 
     private Boolean respondentAnswer;
 
-    private QuestionID questionID;
+    private Integer sequenceNumber;
 
-    public AnswerOptionID getAnswerOptionID() {
-        return answerOptionID;
+    public UUID getId() {
+        return id;
     }
 
-    public void setAnswerOptionID(AnswerOptionID answerOptionID) {
-        this.answerOptionID = answerOptionID;
+    public void setId(UUID id) {
+        this.id = id;
     }
 
-    public String getAnswerOptionText() {
-        return answerOptionText;
+    public String getText() {
+        return text;
     }
 
-    public void setAnswerOptionText(String answerOptionText) {
-        this.answerOptionText = answerOptionText;
+    public void setText(String text) {
+        this.text = text;
     }
 
     public Boolean getRespondentAnswer() {
@@ -38,20 +40,20 @@ public class GetAnswerOptionDTO {
         this.respondentAnswer = respondentAnswer;
     }
 
-    public QuestionID getQuestionID() {
-        return questionID;
+    public Integer getSequenceNumber() {
+        return sequenceNumber;
     }
 
-    public void setQuestionID(QuestionID questionID) {
-        this.questionID = questionID;
+    public void setSequenceNumber(Integer sequenceNumber) {
+        this.sequenceNumber = sequenceNumber;
     }
 
     public static GetAnswerOptionDTO createDTOFromAnswerOption(AnswerOption answerOption) {
         GetAnswerOptionDTO dto = new GetAnswerOptionDTO();
-        dto.answerOptionID = answerOption.getAnswerOptionID();
-        dto.answerOptionText = answerOption.getAnswerOptionText().getText();
+        dto.id = answerOption.getAnswerOptionID().getUUID();
+        dto.text = answerOption.getAnswerOptionText().getText();
         dto.respondentAnswer = answerOption.isRespondentAnswer();
-        dto.questionID = answerOption.getQuestion().getQuestionID();
+        dto.sequenceNumber = answerOption.getSequenceNumber();
 
         return dto;
     }

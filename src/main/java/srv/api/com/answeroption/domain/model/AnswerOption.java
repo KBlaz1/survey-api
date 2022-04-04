@@ -26,6 +26,9 @@ public class AnswerOption extends BaseEntity {
     @JoinColumn(name="question_id", nullable = false)
     private Question question;
 
+    @NotNull
+    private Integer sequenceNumber;
+
     public AnswerOptionID getAnswerOptionID() {
         return answerOptionID;
     }
@@ -56,5 +59,28 @@ public class AnswerOption extends BaseEntity {
 
     public void setQuestion(Question question) {
         this.question = question;
+    }
+
+    public Boolean getRespondentAnswer() {
+        return respondentAnswer;
+    }
+
+    public Integer getSequenceNumber() {
+        return sequenceNumber;
+    }
+
+    public void setSequenceNumber(Integer sequenceNumber) {
+        this.sequenceNumber = sequenceNumber;
+    }
+
+    @Override
+    public String toString() {
+        return "AnswerOption{" +
+                "answerOptionID=" + answerOptionID +
+                ", answerOptionText=" + answerOptionText +
+                ", respondentAnswer=" + respondentAnswer +
+                ", question=" + question +
+                ", sequenceNumber=" + sequenceNumber +
+                '}';
     }
 }

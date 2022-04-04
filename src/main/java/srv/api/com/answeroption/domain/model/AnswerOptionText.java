@@ -5,23 +5,23 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class AnswerOptionText {
 
-    private String answerOptionText;
+    private String text;
 
     public AnswerOptionText() {};
 
-    private AnswerOptionText(String answerOptionText) {
-        this.answerOptionText = answerOptionText;
+    private AnswerOptionText(String text) {
+        this.text = text;
     }
 
-    public static AnswerOptionText create(String answerOptionText) {
-        return new AnswerOptionText(answerOptionText);
+    public static AnswerOptionText create(String text) {
+        return new AnswerOptionText(text);
     }
 
     public String getText() {
-        return answerOptionText;
+        return text;
     }
 
     public void setText(String text) {
-        this.answerOptionText = text;
+        this.text = text;
     }
 }

@@ -7,9 +7,7 @@ import srv.api.com.survey.domain.model.Survey;
 import srv.api.com.survey.domain.model.SurveyID;
 import srv.api.com.survey.domain.model.Title;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class CreateSurveyDTO {
 
@@ -59,7 +57,7 @@ public class CreateSurveyDTO {
         survey.setTitle(Title.create(title));
         survey.setDescription(Description.create(description));
 
-        List<Question> questionsFromDto = new ArrayList<>();
+        Set<Question> questionsFromDto = new HashSet<>();
 
         this.questions.forEach(question -> {
             questionsFromDto.add(question.createQuestionFromDTO(survey));

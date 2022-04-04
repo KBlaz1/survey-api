@@ -7,11 +7,16 @@ import srv.api.com.question.domain.model.Question;
 import javax.persistence.*;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Set;
 
-@NamedQueries({
-        @NamedQuery(name = Survey.getByID, query = "SELECT s FROM Survey s where s.surveyID.uuid = : survey_info_id")
-})
 @Entity
+@NamedQueries({
+        @NamedQuery(name = Survey.getAll, query = "SELECT s FROM Survey s"),
+        @NamedQuery(name = Survey.getByID, query = "SELECT s FROM Survey s where s.surveyID.uuid = :survey_info_id")
+})
+@NamedEntityGraph(name = "graph.survey.questions",
+        attributeNodes = @NamedAttributeNode(value = "questions", subgraph = "questions"),
+        subgraphs = @NamedSubgraph(name = "questions", attributeNodes = @NamedAttributeNode("answerOptions")  ))
 public class Survey extends BaseEntity {
 
     private static final String PREFIX = "Survey";
@@ -33,7 +38,7 @@ public class Survey extends BaseEntity {
     private Description description;
 
     @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<Question> questions;
+    private Set<Question> questions;
 
     public SurveyID getSurveyID() {
         return surveyID;
@@ -59,12 +64,21 @@ public class Survey extends BaseEntity {
         this.description = description;
     }
 
-    public List<Question> getQuestions() {
+    public Set<Question> getQuestions() {
         return questions;
     }
 
-    public void setQuestions(List<Question> questions) {
+    public void setQuestions(Set<Question> questions) {
         this.questions = questions;
     }
 
+    @Override
+    public String toString() {
+        return "Survey{" +
+                "surveyID=" + surveyID +
+                ", title=" + title +
+                ", description=" + description +
+                ", questions=" + questions +
+                '}';
+    }
 }

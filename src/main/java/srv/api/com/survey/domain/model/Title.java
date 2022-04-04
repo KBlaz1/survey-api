@@ -27,4 +27,11 @@ public class Title {
     public void setTitleText(String titleText) {
         this.titleText = titleText;
     }
+
+    @Override
+    public String toString() {
+        return "Title{" +
+                "titleText='" + titleText + '\'' +
+                '}';
+    }
 }

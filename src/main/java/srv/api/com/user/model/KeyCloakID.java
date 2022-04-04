@@ -1,29 +1,24 @@
-package srv.api.com.question.domain.model;
+package srv.api.com.user.model;
 
 import com.sun.istack.NotNull;
 import srv.api.com.general.domain.model.IBaseAggregateRootID;
-import srv.api.com.user.model.KeyCloakID;
 
 import javax.persistence.Column;
-import javax.persistence.Embeddable;
 import javax.ws.rs.ext.ParamConverter;
 import java.util.UUID;
 
-@Embeddable
-public class QuestionID implements IBaseAggregateRootID {
+public class KeyCloakID implements IBaseAggregateRootID {
 
     @NotNull
-    @Column(name = "question_id")
+    @Column(name = "keycloak_id")
     private UUID uuid;
 
-    public QuestionID() {}
-
-    private QuestionID(UUID uuid) {
+    private KeyCloakID(UUID uuid) {
         this.uuid = uuid;
     }
 
-    public static QuestionID create(UUID uuid) {
-        return new QuestionID(uuid);
+    public static KeyCloakID create(UUID uuid) {
+        return new KeyCloakID(uuid);
     }
 
     @Override
@@ -36,16 +31,16 @@ public class QuestionID implements IBaseAggregateRootID {
         this.uuid = uuid;
     }
 
-    public static class QuestionIdParamConverter implements ParamConverter<QuestionID> {
+    public static class KeyCloakIdParamConverter implements ParamConverter<KeyCloakID> {
 
         @Override
-        public QuestionID fromString(String uuid) {
+        public KeyCloakID fromString(String uuid) {
             if (uuid == null) return null;
-            return QuestionID.create(UUID.fromString(uuid));
+            return KeyCloakID.create(UUID.fromString(uuid));
         }
 
         @Override
-        public String toString(QuestionID value) {
+        public String toString(KeyCloakID value) {
             if (value == null) return null;
             if (value.getUUID() == null) return null;
             return value.getUUID().toString();

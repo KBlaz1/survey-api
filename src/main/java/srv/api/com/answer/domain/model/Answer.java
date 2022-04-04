@@ -9,7 +9,15 @@ import javax.persistence.*;
 import javax.validation.Valid;
 
 @Entity
+@NamedQueries({
+        @NamedQuery(name = Answer.getAll, query = "SELECT a FROM Answer a"),
+        @NamedQuery(name = Answer.getByID, query = "SELECT a FROM Answer a where a.answerID.uuid = :answer_info_id")
+})
 public class Answer extends BaseEntity {
+
+    private static final String PREFIX = "Answer";
+    public static final String getAll = PREFIX + ".getAll";
+    public static final String getByID = PREFIX + ".getByID";
 
     @Valid
     @Embedded
@@ -25,6 +33,10 @@ public class Answer extends BaseEntity {
     @OneToOne
     @JoinColumn(name = "question_id")
     private Question question;
+
+    @NotNull
+    @Embedded
+    private AnswerText text;
 
     public AnswerID getAnswerID() {
         return answerID;
@@ -48,5 +60,23 @@ public class Answer extends BaseEntity {
 
     public void setQuestion(Question question) {
         this.question = question;
+    }
+
+    public AnswerText getText() {
+        return text;
+    }
+
+    public void setText(AnswerText text) {
+        this.text = text;
+    }
+
+    @Override
+    public String toString() {
+        return "Answer{" +
+                "answerID=" + answerID +
+                ", answerOption=" + answerOption +
+                ", question=" + question +
+                ", text=" + text +
+                '}';
     }
 }

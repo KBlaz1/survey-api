@@ -20,7 +20,7 @@ public class AnswerID implements IBaseAggregateRootID {
         this.uuid = uuid;
     }
 
-    public AnswerID create(UUID uuid) {
+    public static AnswerID create(UUID uuid) {
         return new AnswerID(uuid);
     }
 

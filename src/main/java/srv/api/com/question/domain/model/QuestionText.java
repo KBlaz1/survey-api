@@ -8,12 +8,12 @@ import javax.persistence.Embeddable;
 public class QuestionText {
 
     @NotNull
-    private String questionText;
+    private String text;
 
     public QuestionText() {}
 
-    private QuestionText(String questionText) {
-        this.questionText = questionText;
+    private QuestionText(String text) {
+        this.text = text;
     }
 
     public static QuestionText create(String questionText) {
@@ -21,10 +21,10 @@ public class QuestionText {
     }
 
     public String getText() {
-        return questionText;
+        return text;
     }
 
     public void setText(String questionText) {
-        this.questionText = questionText;
+        this.text = text;
     }
 }

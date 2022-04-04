@@ -27,4 +27,11 @@ public class Description {
     public void setDescription(String descriptionText) {
         this.descriptionText = descriptionText;
     }
+
+    @Override
+    public String toString() {
+        return "Description{" +
+                "descriptionText='" + descriptionText + '\'' +
+                '}';
+    }
 }

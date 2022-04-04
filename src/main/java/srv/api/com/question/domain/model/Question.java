@@ -9,9 +9,16 @@ import srv.api.com.survey.domain.model.SurveyID;
 import javax.persistence.*;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Set;
 
+@NamedQueries({
+        @NamedQuery(name = Question.getByID, query = "SELECT q FROM Question q where q.questionID.uuid = :question_info_id")
+})
 @Entity
 public class Question extends BaseEntity {
+
+    public static final String PREFIX = "Question";
+    public static final String getByID = PREFIX + ".getByID";
 
     @Valid
     @Embedded
@@ -24,15 +31,17 @@ public class Question extends BaseEntity {
     private QuestionText questionText;
 
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = Survey.class)
-    @JoinColumn(name="survey_id", nullable = false)
     @NotNull
     private Survey survey;
 
     @NotNull
     private Boolean multipleAnswer;
 
+    @NotNull
+    Integer sequenceNumber;
+
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<AnswerOption> answerOptions;
+    private Set<AnswerOption> answerOptions;
 
     public QuestionID getQuestionID() {
         return questionID;
@@ -66,11 +75,31 @@ public class Question extends BaseEntity {
         this.multipleAnswer = multipleAnswer;
     }
 
-    public List<AnswerOption> getAnswerOptions() {
+    public Set<AnswerOption> getAnswerOptions() {
         return answerOptions;
     }
 
-    public void setAnswerOptions(List<AnswerOption> answerOptions) {
+    public void setAnswerOptions(Set<AnswerOption> answerOptions) {
         this.answerOptions = answerOptions;
+    }
+
+    public Integer getSequenceNumber() {
+        return sequenceNumber;
+    }
+
+    public void setSequenceNumber(Integer sequenceNumber) {
+        this.sequenceNumber = sequenceNumber;
+    }
+
+    @Override
+    public String toString() {
+        return "Question{" +
+                "questionID=" + questionID +
+                ", questionText=" + questionText +
+                ", survey=" + survey +
+                ", multipleAnswer=" + multipleAnswer +
+                ", sequenceNumber=" + sequenceNumber +
+                ", answerOptions=" + answerOptions +
+                '}';
     }
 }

@@ -7,33 +7,34 @@ import srv.api.com.survey.domain.model.SurveyID;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class GetQuestionDTO {
 
-    private QuestionID questionID;
+    private UUID id;
 
-    private SurveyID surveyID;
-
-    private String questionText;
+    private String text;
 
     private Boolean multipleAnswer;
 
     private List<GetAnswerOptionDTO> answerOptions;
 
-    public QuestionID getQuestionID() {
-        return questionID;
+    private Integer sequenceNumber;
+
+    public UUID getId() {
+        return id;
     }
 
-    public void setQuestionID(QuestionID questionID) {
-        this.questionID = questionID;
+    public void setId(UUID id) {
+        this.id = id;
     }
 
-    public String getQuestionText() {
-        return questionText;
+    public String getText() {
+        return text;
     }
 
-    public void setQuestionText(String questionText) {
-        this.questionText = questionText;
+    public void setText(String text) {
+        this.text = text;
     }
 
     public Boolean getMultipleAnswer() {
@@ -52,26 +53,26 @@ public class GetQuestionDTO {
         this.answerOptions = answerOptions;
     }
 
-    public SurveyID getSurveyID() {
-        return surveyID;
+    public Integer getSequenceNumber() {
+        return sequenceNumber;
     }
 
-    public void setSurveyID(SurveyID surveyID) {
-        this.surveyID = surveyID;
+    public void setSequenceNumber(Integer sequenceNumber) {
+        this.sequenceNumber = sequenceNumber;
     }
 
     public static GetQuestionDTO createDTOFromQuestion(Question question) {
         GetQuestionDTO dto = new GetQuestionDTO();
-        dto.questionID = question.getQuestionID();
-        dto.surveyID = question.getSurvey().getSurveyID();
+        dto.id = question.getQuestionID().getUUID();
         dto.multipleAnswer = question.getMultipleAnswer();
-        dto.questionText = question.getQuestionText().getText();
+        dto.text = question.getQuestionText().getText();
+        dto.sequenceNumber = question.getSequenceNumber();
 
-        List<GetAnswerOptionDTO> createdAnswerOptionDTOs = new ArrayList<>();
+        List<GetAnswerOptionDTO> createdGetAnswerOptionDTOs = new ArrayList<>();
         question.getAnswerOptions().forEach(option -> {
-            createdAnswerOptionDTOs.add(GetAnswerOptionDTO.createDTOFromAnswerOption(option));
+            createdGetAnswerOptionDTOs.add(GetAnswerOptionDTO.createDTOFromAnswerOption(option));
         });
-        dto.answerOptions = createdAnswerOptionDTOs;
+        dto.answerOptions = createdGetAnswerOptionDTOs;
 
         return dto;
     }
