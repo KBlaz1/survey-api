@@ -1,9 +1,18 @@
 package srv.api.com.general.domain.model;
 
+/**
+ * Class contains page number and size
+ */
 public class PageRequest {
 
+    /**
+     * Page number
+     */
     private int pageNumber;
 
+    /**
+     * Page size
+     */
     private int pageSize;
 
     private PageRequest(int pageNumber, int pageSize) {

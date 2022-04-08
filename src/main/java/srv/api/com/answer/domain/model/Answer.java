@@ -1,7 +1,7 @@
 package srv.api.com.answer.domain.model;
 
 import com.sun.istack.NotNull;
-import srv.api.com.answeroption.domain.model.AnswerOption;
+import srv.api.com.choice.domain.model.Choice;
 import srv.api.com.general.domain.model.BaseEntity;
 import srv.api.com.question.domain.model.Question;
 
@@ -26,8 +26,8 @@ public class Answer extends BaseEntity {
 
     @NotNull
     @OneToOne
-    @JoinColumn(name = "answeroption_id")
-    private AnswerOption answerOption;
+    @JoinColumn(name = "choice_id")
+    private Choice choice;
 
     @NotNull
     @OneToOne
@@ -36,7 +36,7 @@ public class Answer extends BaseEntity {
 
     @NotNull
     @Embedded
-    private AnswerText text;
+    private Label label;
 
     public AnswerID getAnswerID() {
         return answerID;
@@ -46,12 +46,12 @@ public class Answer extends BaseEntity {
         this.answerID = answerID;
     }
 
-    public AnswerOption getAnswerOption() {
-        return answerOption;
+    public Choice getChoice() {
+        return choice;
     }
 
-    public void setAnswerOption(AnswerOption answerOption) {
-        this.answerOption = answerOption;
+    public void setChoice(Choice choice) {
+        this.choice = choice;
     }
 
     public Question getQuestion() {
@@ -62,21 +62,21 @@ public class Answer extends BaseEntity {
         this.question = question;
     }
 
-    public AnswerText getText() {
-        return text;
+    public Label getLabel() {
+        return label;
     }
 
-    public void setText(AnswerText text) {
-        this.text = text;
+    public void setLabel(Label label) {
+        this.label = label;
     }
 
     @Override
     public String toString() {
         return "Answer{" +
                 "answerID=" + answerID +
-                ", answerOption=" + answerOption +
+                ", choice=" + choice +
                 ", question=" + question +
-                ", text=" + text +
+                ", label=" + label +
                 '}';
     }
 }

@@ -2,16 +2,13 @@ package srv.api.com.answer.dto;
 
 import srv.api.com.answer.domain.model.Answer;
 import srv.api.com.answer.domain.model.AnswerID;
-import srv.api.com.answer.domain.model.AnswerText;
-import srv.api.com.answeroption.domain.model.AnswerOption;
-import srv.api.com.answeroption.domain.model.AnswerOptionID;
-import srv.api.com.question.domain.model.Question;
-import srv.api.com.question.domain.model.QuestionID;
+import srv.api.com.answer.domain.model.Label;
 
 import java.util.UUID;
 
 public class CreateAnswerDTO {
 
+    /*
     private UUID answerID;
 
     private UUID answerOptionID;
@@ -55,7 +52,7 @@ public class CreateAnswerDTO {
     public Answer createAnswerFromDTO() {
         Answer answer = new Answer();
         answer.setAnswerID(AnswerID.create(UUID.randomUUID()));
-        answer.setText(AnswerText.Create(text));
+        answer.setText(Label.Create(text));
 
 
         return answer;
@@ -69,5 +66,5 @@ public class CreateAnswerDTO {
                 ", questionID=" + questionID +
                 ", text='" + text + '\'' +
                 '}';
-    }
+    }*/
 }

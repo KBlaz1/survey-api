@@ -21,23 +21,56 @@ public class SurveyService {
     @Inject
     SurveyRepository surveyRepository;
 
+    /**
+     * Finds a Survey by its UUID
+     *
+     * @param surveyID the unique SurveyID
+     * @return Survey
+     * @Throws NotFoundException throws NotFoundException for Survey
+     */
     public Survey getByID(SurveyID surveyID) {
         log.info("getByID() => Find survey by ID / surveyID = " + surveyID.toString());
-
-        Survey survey = surveyRepository.getByID(surveyID).orElseThrow(() -> new NotFoundException("survey not found."));
-        return survey;
+        return surveyRepository.getByID(surveyID).orElseThrow(() -> new NotFoundException("survey not found."));
     }
 
+    /**
+     * Gets a paginates list of filtered Surveys
+     *
+     * @param pageRequest filter parameters
+     * @return List of Survey
+     */
     public List<Survey> getAll(PageRequest pageRequest) {
         log.info("getAll() => Finding all parking tasks paginated / pageRequest = " + pageRequest.toString());
         return surveyRepository.getPaginated(pageRequest);
     }
 
+    /**
+     * Saves a Survey
+     *
+     * @param survey the Survey that's saved
+     * @return persisted Survey
+     */
     public Survey create(Survey survey) {
-        log.info("create() => creating new survey");
+        log.info("create() => creating new survey " + survey.toString());
         return surveyRepository.save(survey);
     }
 
+    /**
+     * Checks if a Survey exists in the database
+     *
+     * @param surveyID Survey's SurveyID
+     * @return true if customer exists, false if not
+     */
+    public boolean checkSurvey(SurveyID surveyID) {
+        log.info("checkSurvey() => Checking for survey / SurveyID = " + surveyID.toString());
+        return surveyRepository.getByID(surveyID).isPresent();
+    }
+
+    /**
+     * counts the number of Surveys in the database
+     *
+     * @return number of Surveys
+     */
     public long count() {
         log.info("count() => counting the numbers of Surveys");
         return surveyRepository.count();

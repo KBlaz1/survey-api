@@ -9,9 +9,16 @@ import javax.persistence.Embeddable;
 import javax.ws.rs.ext.ParamConverter;
 import java.util.UUID;
 
+/**
+ * The model class for the Question UUID
+ * Implements the IBaseAggregateRootID
+ */
 @Embeddable
 public class QuestionID implements IBaseAggregateRootID {
 
+    /**
+     * Question's UUID
+     */
     @NotNull
     @Column(name = "question_id")
     private UUID uuid;
@@ -34,6 +41,13 @@ public class QuestionID implements IBaseAggregateRootID {
     @Override
     public void setUUID(UUID uuid) {
         this.uuid = uuid;
+    }
+
+    @Override
+    public String toString() {
+        return "QuestionID{" +
+                "uuid=" + uuid +
+                '}';
     }
 
     public static class QuestionIdParamConverter implements ParamConverter<QuestionID> {

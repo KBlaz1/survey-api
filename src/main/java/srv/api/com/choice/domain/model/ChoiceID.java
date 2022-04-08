@@ -1,4 +1,4 @@
-package srv.api.com.survey.domain.model;
+package srv.api.com.choice.domain.model;
 
 import com.sun.istack.NotNull;
 import srv.api.com.general.domain.model.IBaseAggregateRootID;
@@ -9,27 +9,27 @@ import javax.ws.rs.ext.ParamConverter;
 import java.util.UUID;
 
 /**
- * The model class for the Survey UUID
+ * The model class for the Choice's UUID
  * Implements the IBaseAggregateRootID
  */
 @Embeddable
-public class SurveyID implements IBaseAggregateRootID {
+public class ChoiceID implements IBaseAggregateRootID {
 
     /**
-     * Survey's UUID
+     * Choice's UUID
      */
     @NotNull
-    @Column(name = "survey_id")
+    @Column(name = "choice_id")
     private UUID uuid;
 
-    public SurveyID() {}
+    public ChoiceID() {}
 
-    private SurveyID(UUID uuid) {
+    private ChoiceID(UUID uuid) {
         this.uuid = uuid;
     }
 
-    public static SurveyID create(UUID uuid) {
-        return new SurveyID(uuid);
+    public static ChoiceID create(UUID uuid) {
+        return new ChoiceID(uuid);
     }
 
     @Override
@@ -44,21 +44,21 @@ public class SurveyID implements IBaseAggregateRootID {
 
     @Override
     public String toString() {
-        return "SurveyID{" +
+        return "ChoiceID{" +
                 "uuid=" + uuid +
                 '}';
     }
 
-    public static class SurveyIdParamConverter implements ParamConverter<SurveyID> {
+    public static class ChoiceIdParamConverter implements ParamConverter<ChoiceID> {
 
         @Override
-        public SurveyID fromString(String uuid) {
+        public ChoiceID fromString(String uuid) {
             if (uuid == null) return null;
-            return SurveyID.create(UUID.fromString(uuid));
+            return ChoiceID.create(UUID.fromString(uuid));
         }
 
         @Override
-        public String toString(SurveyID value) {
+        public String toString(ChoiceID value) {
             if (value == null) return null;
             if (value.getUUID() == null) return null;
             return value.getUUID().toString();

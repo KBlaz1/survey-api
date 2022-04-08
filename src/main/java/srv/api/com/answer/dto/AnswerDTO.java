@@ -4,6 +4,7 @@ import java.util.UUID;
 
 public class AnswerDTO {
 
+    /*
     UUID answerOptionID;
 
     String text;
@@ -30,5 +31,5 @@ public class AnswerDTO {
                 "answerOptionID=" + answerOptionID +
                 ", text='" + text + '\'' +
                 '}';
-    }
+    }*/
 }

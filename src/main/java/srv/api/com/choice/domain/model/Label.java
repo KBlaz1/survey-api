@@ -1,4 +1,4 @@
-package srv.api.com.survey.domain.model;
+package srv.api.com.choice.domain.model;
 
 import com.sun.istack.NotNull;
 
@@ -6,26 +6,26 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 /**
- * The model class for the Survey's title
+ * The model class for the Choice's label
  */
 @Embeddable
-public class Title {
+public class Label {
 
     /**
-     * Survey's title text
+     * Choice's label text
      */
     @NotNull
-    @Column(name = "title")
+    @Column(name = "label")
     private String text;
 
-    public Title() {}
+    public Label() {};
 
-    private Title(String text) {
+    private Label(String text) {
         this.text = text;
     }
 
-    public static Title create(String text) {
-        return new Title(text);
+    public static Label create(String text) {
+        return new Label(text);
     }
 
     public String getText() {
@@ -38,7 +38,7 @@ public class Title {
 
     @Override
     public String toString() {
-        return "Title{" +
+        return "Label{" +
                 "text='" + text + '\'' +
                 '}';
     }

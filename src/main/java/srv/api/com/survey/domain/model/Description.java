@@ -2,36 +2,44 @@ package srv.api.com.survey.domain.model;
 
 import com.sun.istack.NotNull;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
+/**
+ * The model class for the Survey's description
+ */
 @Embeddable
 public class Description {
 
+    /**
+     * Survey's description text
+     */
     @NotNull
-    private String descriptionText;
+    @Column(name = "description")
+    private String text;
 
     public Description() {}
 
-    private Description(String descriptionText) {
-        this.descriptionText = descriptionText;
+    private Description(String text) {
+        this.text = text;
     }
 
-    public static Description create(String descriptionText) {
-        return new Description(descriptionText);
+    public static Description create(String text) {
+        return new Description(text);
     }
 
-    public String getDescriptionText() {
-        return descriptionText;
+    public String getText() {
+        return text;
     }
 
-    public void setDescription(String descriptionText) {
-        this.descriptionText = descriptionText;
+    public void setText(String text) {
+        this.text = text;
     }
 
     @Override
     public String toString() {
         return "Description{" +
-                "descriptionText='" + descriptionText + '\'' +
+                "text='" + text + '\'' +
                 '}';
     }
 }

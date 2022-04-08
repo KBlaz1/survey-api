@@ -1,4 +1,4 @@
-package srv.api.com.survey.domain.model;
+package srv.api.com.form.domain.model;
 
 import com.sun.istack.NotNull;
 
@@ -6,13 +6,13 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 /**
- * The model class for the Survey's title
+ * The model class for the Form's title
  */
 @Embeddable
 public class Title {
 
     /**
-     * Survey's title text
+     * Form's title text
      */
     @NotNull
     @Column(name = "title")

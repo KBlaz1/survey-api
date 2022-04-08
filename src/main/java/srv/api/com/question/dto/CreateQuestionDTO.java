@@ -1,33 +1,59 @@
 package srv.api.com.question.dto;
 
 import com.sun.istack.NotNull;
-import srv.api.com.answeroption.domain.model.AnswerOption;
-import srv.api.com.answeroption.dto.CreateAnswerOptionDTO;
+import srv.api.com.choice.domain.model.Choice;
+import srv.api.com.choice.dto.CreateChoiceDTO;
+import srv.api.com.form.domain.model.Form;
 import srv.api.com.question.domain.model.Question;
 import srv.api.com.question.domain.model.QuestionID;
-import srv.api.com.question.domain.model.QuestionText;
-import srv.api.com.survey.domain.model.Survey;
+import srv.api.com.question.domain.model.Label;
+import srv.api.com.question.domain.model.Type;
+import srv.api.com.question.domain.model.Index;
 
 import javax.validation.Valid;
 import java.util.*;
 
+/**
+ * DTO class for handling the Question class used in POST requests
+ */
 public class CreateQuestionDTO {
 
+    /**
+     * Question's ID
+     */
     @Valid
     @NotNull
     private QuestionID questionID;
 
+    /**
+     * Question's label
+     */
     @NotNull
-    private String text;
+    private String label;
 
+    /**
+     * Type of the Question
+     */
     @NotNull
-    private boolean multipleAnswer;
+    private String type;
 
+    /**
+     * Question's index
+     */
     @NotNull
-    private List<CreateAnswerOptionDTO> answerOptions;
+    private Integer index;
 
+    /**
+     * determines if the question needs to be answered
+     */
     @NotNull
-    private Integer sequenceNumber;
+    private Boolean isRequired;
+
+    /**
+     * Question's answering choices
+     */
+    @NotNull
+    private List<CreateChoiceDTO> choices;
 
     public QuestionID getQuestionID() {
         return questionID;
@@ -37,56 +63,79 @@ public class CreateQuestionDTO {
         this.questionID = questionID;
     }
 
-    public String geText() {
-        return text;
+    public String getLabel() {
+        return label;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setLabel(String label) {
+        this.label = label;
     }
 
-    public boolean isMultipleAnswer() {
-        return multipleAnswer;
+    public String getType() {
+        return type;
     }
 
-    public void setMultipleAnswer(boolean multipleAnswer) {
-        this.multipleAnswer = multipleAnswer;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public List<CreateAnswerOptionDTO> getAnswerOptions() {
-        return answerOptions;
+    public Integer getIndex() {
+        return index;
     }
 
-    public void setAnswerOptions(List<CreateAnswerOptionDTO> answerOptions) {
-        this.answerOptions = answerOptions;
+    public void setIndex(Integer index) {
+        this.index = index;
     }
 
-    public String getText() {
-        return text;
+    public Boolean getRequired() {
+        return isRequired;
     }
 
-    public Integer getSequenceNumber() {
-        return sequenceNumber;
+    public void setRequired(Boolean required) {
+        isRequired = required;
     }
 
-    public void setSequenceNumber(Integer sequenceNumber) {
-        this.sequenceNumber = sequenceNumber;
+    public List<CreateChoiceDTO> getChoices() {
+        return choices;
     }
 
-    public Question createQuestionFromDTO(Survey survey) {
+    public void setChoices(List<CreateChoiceDTO> choices) {
+        this.choices = choices;
+    }
+
+    @Override
+    public String toString() {
+        return "CreateQuestionDTO{" +
+                "questionID=" + questionID +
+                ", label='" + label + '\'' +
+                ", type='" + type + '\'' +
+                ", index=" + index +
+                ", isRequired=" + isRequired +
+                ", choices=" + choices +
+                '}';
+    }
+
+    /**
+     * Maps the QuestionDTO to the Question model class
+     *
+     * @param form the form the question belongs to
+     * @return Form class object
+     */
+    public Question createQuestionFromDTO(Form form) {
         Question question = new Question();
+
         question.setQuestionID(QuestionID.create(UUID.randomUUID()));
-        question.setQuestionText(QuestionText.create(text));
-        question.setMultipleAnswer(multipleAnswer);
-        question.setSurvey(survey);
-        question.setSequenceNumber(sequenceNumber);
+        question.setLabel(Label.create(label));
+        question.setType(Type.valueOf(type));
+        question.setIndex(Index.create(index));
+        question.setRequired(isRequired);
+        question.setForm(form);
 
-        Set<AnswerOption> answerOptionsFromDTO = new HashSet<>();
-
-        this.answerOptions.forEach(option -> {
-            answerOptionsFromDTO.add(option.createAnswerOptionFromDTO(question));
+        Set<Choice> choicesFromDTO = new HashSet<>();
+        this.choices.forEach(choice -> {
+            choicesFromDTO.add(choice.createChoiceFromDTO(question));
         });
-        question.setAnswerOptions(answerOptionsFromDTO);
+        question.setChoices(choicesFromDTO);
 
         return question;
     }

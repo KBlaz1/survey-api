@@ -1,47 +1,75 @@
 package srv.api.com.question.domain.model;
 
 import com.sun.istack.NotNull;
-import srv.api.com.answeroption.domain.model.AnswerOption;
+import srv.api.com.choice.domain.model.Choice;
+import srv.api.com.form.domain.model.Form;
 import srv.api.com.general.domain.model.BaseEntity;
-import srv.api.com.survey.domain.model.Survey;
-import srv.api.com.survey.domain.model.SurveyID;
 
 import javax.persistence.*;
 import javax.validation.Valid;
-import java.util.List;
 import java.util.Set;
 
-@NamedQueries({
-        @NamedQuery(name = Question.getByID, query = "SELECT q FROM Question q where q.questionID.uuid = :question_info_id")
-})
+/**
+ * Model class of the Question
+ * Extends BaseEntity
+ */
 @Entity
 public class Question extends BaseEntity {
 
     public static final String PREFIX = "Question";
     public static final String getByID = PREFIX + ".getByID";
 
+    /**
+     * Question ID
+     */
     @Valid
     @Embedded
     @NotNull
     private QuestionID questionID;
 
+    /**
+     * Label of Question
+     */
     @Valid
     @Embedded
     @NotNull
-    private QuestionText questionText;
+    private Label label;
 
-    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Survey.class)
+    /**
+     * Type of Question
+     * Lets the client know how to display the Question
+     */
     @NotNull
-    private Survey survey;
+    @Enumerated(EnumType.STRING)
+    private Type type;
 
+    /**
+     * Index of Question
+     * Lets the client know in what sequence to display the Question's
+     */
+    @Valid
+    @Embedded
     @NotNull
-    private Boolean multipleAnswer;
+    private Index index;
 
+    /**
+     * Is the answering of the question required?
+     */
     @NotNull
-    Integer sequenceNumber;
+    private Boolean isRequired;
 
-    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private Set<AnswerOption> answerOptions;
+    /**
+     * The Form this Question belongs to
+     */
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Form.class)
+    @NotNull
+    private Form form;
+
+    /**
+     * Choices for answering the question
+     */
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private Set<Choice> choices;
 
     public QuestionID getQuestionID() {
         return questionID;
@@ -51,55 +79,64 @@ public class Question extends BaseEntity {
         this.questionID = questionID;
     }
 
-    public QuestionText getQuestionText() {
-        return questionText;
+    public Label getLabel() {
+        return label;
     }
 
-    public void setQuestionText(QuestionText questionText) {
-        this.questionText = questionText;
+    public void setLabel(Label label) {
+        this.label = label;
     }
 
-    public Survey getSurvey() {
-        return survey;
+    public Type getType() {
+        return type;
     }
 
-    public void setSurvey(Survey survey) {
-        this.survey = survey;
+    public void setType(Type type) {
+        this.type = type;
     }
 
-    public Boolean getMultipleAnswer() {
-        return multipleAnswer;
+    public Index getIndex() {
+        return index;
     }
 
-    public void setMultipleAnswer(Boolean multipleAnswer) {
-        this.multipleAnswer = multipleAnswer;
+    public void setIndex(Index index) {
+        this.index = index;
     }
 
-    public Set<AnswerOption> getAnswerOptions() {
-        return answerOptions;
+    public Boolean getRequired() {
+        return isRequired;
     }
 
-    public void setAnswerOptions(Set<AnswerOption> answerOptions) {
-        this.answerOptions = answerOptions;
+    public void setRequired(Boolean required) {
+        isRequired = required;
     }
 
-    public Integer getSequenceNumber() {
-        return sequenceNumber;
+    public Form getForm() {
+        return form;
     }
 
-    public void setSequenceNumber(Integer sequenceNumber) {
-        this.sequenceNumber = sequenceNumber;
+    public void setForm(Form form) {
+        this.form = form;
+    }
+
+    public Set<Choice> getChoices() {
+        return choices;
+    }
+
+    public void setChoices(Set<Choice> choices) {
+        this.choices = choices;
     }
 
     @Override
     public String toString() {
         return "Question{" +
                 "questionID=" + questionID +
-                ", questionText=" + questionText +
-                ", survey=" + survey +
-                ", multipleAnswer=" + multipleAnswer +
-                ", sequenceNumber=" + sequenceNumber +
-                ", answerOptions=" + answerOptions +
+                ", label=" + label +
+                ", type=" + type +
+                ", index=" + index +
+                ", isRequired=" + isRequired +
+                ", form=" + form +
+                ", choices=" + choices +
                 '}';
     }
 }

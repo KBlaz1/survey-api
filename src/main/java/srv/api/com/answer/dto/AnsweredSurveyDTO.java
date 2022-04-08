@@ -9,6 +9,7 @@ import java.util.UUID;
 
 public class AnsweredSurveyDTO {
 
+    /**
     UUID surveyUUID;
 
     List<answeredQuestionDTO> answeredQuestionDTOS;
@@ -45,5 +46,5 @@ public class AnsweredSurveyDTO {
                 "surveyUUID=" + surveyUUID +
                 ", answeredQuestionDTOS=" + answeredQuestionDTOS +
                 '}';
-    }
+    }*/
 }

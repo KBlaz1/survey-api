@@ -1,4 +1,4 @@
-package srv.api.com.survey.domain.model;
+package srv.api.com.form.domain.model;
 
 import com.sun.istack.NotNull;
 import srv.api.com.general.domain.model.IBaseAggregateRootID;
@@ -9,27 +9,27 @@ import javax.ws.rs.ext.ParamConverter;
 import java.util.UUID;
 
 /**
- * The model class for the Survey UUID
+ * Model class of the Form UUID
  * Implements the IBaseAggregateRootID
  */
 @Embeddable
-public class SurveyID implements IBaseAggregateRootID {
+public class FormID implements IBaseAggregateRootID {
 
     /**
-     * Survey's UUID
+     * Surveys UUID
      */
     @NotNull
-    @Column(name = "survey_id")
+    @Column(name = "form_id")
     private UUID uuid;
 
-    public SurveyID() {}
+    public FormID() {}
 
-    private SurveyID(UUID uuid) {
+    private FormID(UUID uuid) {
         this.uuid = uuid;
     }
 
-    public static SurveyID create(UUID uuid) {
-        return new SurveyID(uuid);
+    public static FormID create(UUID uuid) {
+        return new FormID(uuid);
     }
 
     @Override
@@ -44,21 +44,21 @@ public class SurveyID implements IBaseAggregateRootID {
 
     @Override
     public String toString() {
-        return "SurveyID{" +
+        return "FormID{" +
                 "uuid=" + uuid +
                 '}';
     }
 
-    public static class SurveyIdParamConverter implements ParamConverter<SurveyID> {
+    public static class FormIdParamConverter implements ParamConverter<FormID> {
 
         @Override
-        public SurveyID fromString(String uuid) {
+        public FormID fromString(String uuid) {
             if (uuid == null) return null;
-            return SurveyID.create(UUID.fromString(uuid));
+            return FormID.create(UUID.fromString(uuid));
         }
 
         @Override
-        public String toString(SurveyID value) {
+        public String toString(FormID value) {
             if (value == null) return null;
             if (value.getUUID() == null) return null;
             return value.getUUID().toString();

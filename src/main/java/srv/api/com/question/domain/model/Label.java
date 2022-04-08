@@ -1,4 +1,4 @@
-package srv.api.com.survey.domain.model;
+package srv.api.com.question.domain.model;
 
 import com.sun.istack.NotNull;
 
@@ -6,33 +6,33 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 /**
- * The model class for the Survey's title
+ * The model class for the Question's Label
  */
 @Embeddable
-public class Title {
+public class Label {
 
     /**
-     * Survey's title text
+     * Question's label text
      */
     @NotNull
-    @Column(name = "title")
+    @Column(name = "label")
     private String text;
 
-    public Title() {}
+    public Label() {}
 
-    private Title(String text) {
+    private Label(String text) {
         this.text = text;
     }
 
-    public static Title create(String text) {
-        return new Title(text);
+    public static Label create(String questionText) {
+        return new Label(questionText);
     }
 
     public String getText() {
         return text;
     }
 
-    public void setText(String text) {
+    public void setText(String questionText) {
         this.text = text;
     }
 

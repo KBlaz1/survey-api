@@ -2,7 +2,7 @@ package srv.api.com.answer.dto;
 
 import srv.api.com.answer.domain.model.Answer;
 import srv.api.com.answer.domain.model.AnswerID;
-import srv.api.com.answer.domain.model.AnswerText;
+import srv.api.com.answer.domain.model.Label;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +10,7 @@ import java.util.UUID;
 
 public class answeredQuestionDTO {
 
+    /*
     UUID questionUUID;
 
     String text;
@@ -55,7 +56,7 @@ public class answeredQuestionDTO {
 
         for(int i = 0; i < answerDTOS.size(); i++) {
             Answer answer = new Answer();
-            answer.setText(AnswerText.Create(text));
+            answer.setText(Label.Create(text));
             answer.setAnswerID(AnswerID.create(UUID.randomUUID()));
             //answer.setQuestion();
         }
@@ -71,5 +72,5 @@ public class answeredQuestionDTO {
                 ", multipleAnswer=" + multipleAnswer +
                 ", answerDTOS=" + answerDTOS +
                 '}';
-    }
+    }*/
 }

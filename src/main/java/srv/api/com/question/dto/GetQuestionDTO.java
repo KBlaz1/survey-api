@@ -1,78 +1,127 @@
 package srv.api.com.question.dto;
 
-import srv.api.com.answeroption.dto.GetAnswerOptionDTO;
+import srv.api.com.choice.dto.GetChoiceDTO;
 import srv.api.com.question.domain.model.Question;
 import srv.api.com.question.domain.model.QuestionID;
-import srv.api.com.survey.domain.model.SurveyID;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
+/**
+ * DTO class for handling the Question class used in GET requests
+ */
 public class GetQuestionDTO {
 
-    private UUID id;
+    /**
+     * Question's ID
+     */
+    private QuestionID questionID;
 
-    private String text;
+    /**
+     * Question's label
+     */
+    private String label;
 
-    private Boolean multipleAnswer;
+    /**
+     * Question's type
+     */
+    private String type;
 
-    private List<GetAnswerOptionDTO> answerOptions;
+    /**
+     * Question's index
+     */
+    private Integer index;
 
-    private Integer sequenceNumber;
+    /**
+     * Question's isRequired
+     */
+    private Boolean isRequired;
 
-    public UUID getId() {
-        return id;
+    /**
+     * Question's choices
+     */
+    private List<GetChoiceDTO> choices;
+
+    public QuestionID getQuestionID() {
+        return questionID;
     }
 
-    public void setId(UUID id) {
-        this.id = id;
+    public void setQuestionID(QuestionID questionID) {
+        this.questionID = questionID;
     }
 
-    public String getText() {
-        return text;
+    public String getLabel() {
+        return label;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setLabel(String label) {
+        this.label = label;
     }
 
-    public Boolean getMultipleAnswer() {
-        return multipleAnswer;
+    public String getType() {
+        return type;
     }
 
-    public void setMultipleAnswer(Boolean multipleAnswer) {
-        this.multipleAnswer = multipleAnswer;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public List<GetAnswerOptionDTO> getAnswerOptions() {
-        return answerOptions;
+    public Integer getIndex() {
+        return index;
     }
 
-    public void setAnswerOptions(List<GetAnswerOptionDTO> answerOptions) {
-        this.answerOptions = answerOptions;
+    public void setIndex(Integer index) {
+        this.index = index;
     }
 
-    public Integer getSequenceNumber() {
-        return sequenceNumber;
+    public Boolean getRequired() {
+        return isRequired;
     }
 
-    public void setSequenceNumber(Integer sequenceNumber) {
-        this.sequenceNumber = sequenceNumber;
+    public void setRequired(Boolean required) {
+        isRequired = required;
     }
 
+    public List<GetChoiceDTO> getChoices() {
+        return choices;
+    }
+
+    public void setChoices(List<GetChoiceDTO> choices) {
+        this.choices = choices;
+    }
+
+    @Override
+    public String toString() {
+        return "GetQuestionDTO{" +
+                "questionID=" + questionID +
+                ", label='" + label + '\'' +
+                ", type='" + type + '\'' +
+                ", index=" + index +
+                ", isRequired=" + isRequired +
+                ", choices=" + choices +
+                '}';
+    }
+
+    /**
+     * Maps the Question to its dto
+     *
+     * @param question The question that's mapped
+     * @return GetQuestionDTO
+     */
     public static GetQuestionDTO createDTOFromQuestion(Question question) {
         GetQuestionDTO dto = new GetQuestionDTO();
-        dto.id = question.getQuestionID().getUUID();
-        dto.multipleAnswer = question.getMultipleAnswer();
-        dto.text = question.getQuestionText().getText();
-        dto.sequenceNumber = question.getSequenceNumber();
 
-        List<GetAnswerOptionDTO> createdGetAnswerOptionDTOs = new ArrayList<>();
-        question.getAnswerOptions().forEach(option -> {
-            createdGetAnswerOptionDTOs.add(GetAnswerOptionDTO.createDTOFromAnswerOption(option));
+        dto.questionID = question.getQuestionID();
+        dto.type = question.getType().toString();
+        dto.label = question.getLabel().getText();
+        dto.index = question.getIndex().getNumber();
+        dto.isRequired = question.getRequired();
+
+        List<GetChoiceDTO> createdGetChoiceDTOS = new ArrayList<>();
+        question.getChoices().forEach(choice -> {
+            createdGetChoiceDTOS.add(GetChoiceDTO.createDTOFromChoice(choice));
         });
-        dto.answerOptions = createdGetAnswerOptionDTOs;
+        dto.choices = createdGetChoiceDTOS;
 
         return dto;
     }
