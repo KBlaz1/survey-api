@@ -85,12 +85,14 @@ public class SurveyResource {
      * @return Response 201 with location in header
      */
     @POST
-    public Response createSurvey(@Valid CreateSurveyDTO createSurveyDTO, @Context UriInfo uriInfo) {
-        log.info("create => Creating a new Survey");
+    public Response create(@Valid CreateSurveyDTO createSurveyDTO, @Context UriInfo uriInfo) {
+        log.info("create() => Creating a new Survey");
 
-        Survey survey = surveyService.create(createSurveyDTO.createSurveyFromDTO());
+        Survey survey = createSurveyDTO.createSurveyFromDTO();
         if (surveyService.checkSurvey(survey.getSurveyID()))
             return Response.status(409).entity("Survey already exists.").build();
+
+        surveyService.create(survey);
 
         return Response.created(uriInfo.getRequestUriBuilder()
             .path(

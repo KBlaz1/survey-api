@@ -2,7 +2,6 @@ package srv.api.com.question.domain.model;
 
 import com.sun.istack.NotNull;
 import srv.api.com.general.domain.model.IBaseAggregateRootID;
-import srv.api.com.user.model.KeyCloakID;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;

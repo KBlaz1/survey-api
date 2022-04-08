@@ -51,7 +51,7 @@ public class SurveyService {
      * @return persisted Survey
      */
     public Survey create(Survey survey) {
-        log.info("create() => creating new survey " + survey.toString());
+        log.info("create() => creating new survey");
         return surveyRepository.save(survey);
     }
 
