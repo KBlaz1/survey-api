@@ -6,6 +6,7 @@ import srv.api.com.question.dto.GetQuestionDTO;
 import srv.api.com.survey.domain.model.Survey;
 import srv.api.com.survey.domain.model.SurveyID;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -34,6 +35,8 @@ public class GetSurveyDTO {
      * Survey's forms
      */
     private List<GetFormDTO> forms;
+
+    private LocalDateTime timeStampCreated;
 
     public SurveyID getSurveyID() {
         return surveyID;
@@ -67,6 +70,14 @@ public class GetSurveyDTO {
         this.forms = forms;
     }
 
+    public LocalDateTime getTimeStampCreated() {
+        return timeStampCreated;
+    }
+
+    public void setTimeStampCreated(LocalDateTime timeStampCreated) {
+        this.timeStampCreated = timeStampCreated;
+    }
+
     @Override
     public String toString() {
         return "GetSurveyDTO{" +
@@ -74,6 +85,7 @@ public class GetSurveyDTO {
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", forms=" + forms +
+                ", timeStampCreated=" + timeStampCreated +
                 '}';
     }
 
@@ -89,6 +101,7 @@ public class GetSurveyDTO {
         dto.surveyID = survey.getSurveyID();
         dto.title = survey.getTitle().getText();
         dto.description = survey.getDescription().getText();
+        dto.timeStampCreated = survey.getTimeStampCreated();
 
         List<GetFormDTO> createdGetFormDTOs = new ArrayList<>();
         survey.getForms().forEach(form -> {

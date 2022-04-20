@@ -6,6 +6,8 @@ import srv.api.com.general.domain.model.BaseEntity;
 
 import javax.persistence.*;
 import javax.validation.Valid;
+import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -50,6 +52,9 @@ public class Survey extends BaseEntity {
     @Embedded
     private Description description;
 
+    @NotNull
+    private LocalDateTime timeStampCreated;
+
     /**
      * Forms of the survey. Forms hold the questions
      */
@@ -88,13 +93,39 @@ public class Survey extends BaseEntity {
         this.forms = forms;
     }
 
+    public LocalDateTime getTimeStampCreated() {
+        return timeStampCreated;
+    }
+
+    public void setTimeStampCreated(LocalDateTime timeStampCreated) {
+        this.timeStampCreated = timeStampCreated;
+    }
+
     @Override
     public String toString() {
         return "Survey{" +
                 "surveyID=" + surveyID +
                 ", title=" + title +
                 ", description=" + description +
+                ", timeStampCreated=" + timeStampCreated +
                 ", forms=" + forms +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Survey survey = (Survey) o;
+        return Objects.equals(surveyID, survey.surveyID) &&
+                Objects.equals(title, survey.title) &&
+                Objects.equals(description, survey.description) &&
+                Objects.equals(timeStampCreated, survey.timeStampCreated) &&
+                Objects.equals(forms, survey.forms);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(surveyID, title, description, timeStampCreated, forms);
     }
 }

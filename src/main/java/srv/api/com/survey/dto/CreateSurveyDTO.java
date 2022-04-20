@@ -9,6 +9,7 @@ import srv.api.com.survey.domain.model.SurveyID;
 import srv.api.com.survey.domain.model.Title;
 
 import javax.validation.Valid;
+import java.time.LocalDateTime;
 import java.util.*;
 
 /**
@@ -94,6 +95,7 @@ public class CreateSurveyDTO {
         survey.setSurveyID(SurveyID.create(UUID.randomUUID()));
         survey.setTitle(Title.create(title));
         survey.setDescription(Description.create(description));
+        survey.setTimeStampCreated(LocalDateTime.now());
 
         Set<Form> formsFromDTO = new HashSet<>();
         this.forms.forEach(form -> {

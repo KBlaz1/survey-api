@@ -51,7 +51,7 @@ public class SurveyService {
      * @return persisted Survey
      */
     public Survey create(Survey survey) {
-        log.info("create() => creating new survey");
+        log.info("create() => creating new survey / surveyID = " + survey.getSurveyID().toString());
         return surveyRepository.save(survey);
     }
 
@@ -74,5 +74,20 @@ public class SurveyService {
     public long count() {
         log.info("count() => counting the numbers of Surveys");
         return surveyRepository.count();
+    }
+
+    /**
+     * Deletes a Survey
+     *
+     * @param surveyID the Survey's ID
+     * @throws NotFoundException if the Survey is not found /doesn't exist
+     */
+    public void delete(SurveyID surveyID) {
+        log.info("delete() => Deleting survey / surveyID = " + surveyID.toString());
+
+        Survey survey = surveyRepository.getByID(surveyID).orElseThrow(
+                () -> new NotFoundException("Suvey not found")
+        );
+        surveyRepository.delete(surveyID);
     }
 }

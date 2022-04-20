@@ -58,4 +58,13 @@ public class SurveyRepository implements PanacheRepository<Survey> {
 
         return surveyList;
     }
+
+    /**
+     * Deletes a Survey
+     *
+     * @param surveyID the Survey's ID
+     */
+    public void delete(SurveyID surveyID) {
+        getEntityManager().remove(getByID(surveyID).orElseThrow());
+    }
 }

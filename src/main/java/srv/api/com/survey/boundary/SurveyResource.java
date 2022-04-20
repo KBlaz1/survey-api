@@ -101,5 +101,18 @@ public class SurveyResource {
         ).build();
     }
 
+    /**
+     * Deletes a Survey
+     *
+     * @param surveyID Survey's unique ID
+     * @return Response 204 if deletion was successful
+     */
+    @DELETE
+    @Path("{SurveyID}")
+    public Response delete(@PathParam("SurveyID") SurveyID surveyID) {
+        log.info("delete() => Deleting a resource");
 
+        surveyService.delete(surveyID);
+        return Response.noContent().build();
+    }
 }
