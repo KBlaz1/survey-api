@@ -6,6 +6,7 @@ import srv.api.com.general.domain.model.Pagination;
 import srv.api.com.survey.Service.SurveyService;
 import srv.api.com.survey.domain.model.Survey;
 import srv.api.com.survey.domain.model.SurveyID;
+import srv.api.com.survey.dto.AnswerSurveyDTO;
 import srv.api.com.survey.dto.CreateSurveyDTO;
 import srv.api.com.survey.dto.GetAllSurveysDTO;
 import srv.api.com.survey.dto.GetSurveyDTO;
@@ -26,7 +27,7 @@ import java.util.stream.Collectors;
  * The Survey resource
  * Used for handling HTTP requests
  */
-@Path("survey")
+@Path("api/survey")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @RequestScoped
@@ -114,5 +115,11 @@ public class SurveyResource {
 
         surveyService.delete(surveyID);
         return Response.noContent().build();
+    }
+
+    @POST
+    @Path("{SurveyID}/answer")
+    public Response answer(@PathParam("SurveyID") SurveyID surveyID, AnswerSurveyDTO answerSurveyDTO, @Context UriInfo uriInfo) {
+        return Response.ok().build();
     }
 }

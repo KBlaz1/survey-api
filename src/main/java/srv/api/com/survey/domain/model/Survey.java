@@ -1,8 +1,8 @@
 package srv.api.com.survey.domain.model;
 
 import com.sun.istack.NotNull;
-import srv.api.com.form.domain.model.Form;
 import srv.api.com.general.domain.model.BaseEntity;
+import srv.api.com.survey.domain.model.form.Form;
 
 import javax.persistence.*;
 import javax.validation.Valid;

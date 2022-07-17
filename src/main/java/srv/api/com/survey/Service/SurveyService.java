@@ -90,4 +90,10 @@ public class SurveyService {
         );
         surveyRepository.delete(surveyID);
     }
+
+    /*
+    public void createAnswer(List<Answer> answers) {
+        answers.forEach(answer -> answerRepository.save(answer));
+    }
+     */
 }

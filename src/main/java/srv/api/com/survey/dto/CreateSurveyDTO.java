@@ -1,8 +1,8 @@
 package srv.api.com.survey.dto;
 
 import com.sun.istack.NotNull;
-import srv.api.com.form.domain.model.Form;
-import srv.api.com.form.dto.CreateFormDTO;
+import srv.api.com.survey.domain.model.form.Form;
+import srv.api.com.survey.dto.form.CreateFormDTO;
 import srv.api.com.survey.domain.model.Description;
 import srv.api.com.survey.domain.model.Survey;
 import srv.api.com.survey.domain.model.SurveyID;

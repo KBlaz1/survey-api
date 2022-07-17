@@ -4,20 +4,20 @@ import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import srv.api.com.choice.domain.model.Choice;
-import srv.api.com.choice.domain.model.ChoiceID;
-import srv.api.com.form.domain.model.Form;
-import srv.api.com.form.domain.model.FormID;
-import srv.api.com.form.domain.model.Index;
 import srv.api.com.general.domain.model.PageRequest;
-import srv.api.com.question.domain.model.Label;
-import srv.api.com.question.domain.model.Question;
-import srv.api.com.question.domain.model.QuestionID;
-import srv.api.com.question.domain.model.Type;
 import srv.api.com.survey.domain.model.Description;
 import srv.api.com.survey.domain.model.Survey;
 import srv.api.com.survey.domain.model.SurveyID;
 import srv.api.com.survey.domain.model.Title;
+import srv.api.com.survey.domain.model.choice.Choice;
+import srv.api.com.survey.domain.model.choice.ChoiceID;
+import srv.api.com.survey.domain.model.form.Form;
+import srv.api.com.survey.domain.model.form.FormID;
+import srv.api.com.survey.domain.model.form.Index;
+import srv.api.com.survey.domain.model.question.Label;
+import srv.api.com.survey.domain.model.question.Question;
+import srv.api.com.survey.domain.model.question.QuestionID;
+import srv.api.com.survey.domain.model.question.Type;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -109,7 +109,7 @@ public class SurveyRepositoryTest {
 
         Form form = new Form();
         form.setFormID(FormID.create(UUID.randomUUID()));
-        form.setTitle(srv.api.com.form.domain.model.Title.create("test form"));
+        form.setTitle(srv.api.com.survey.domain.model.form.Title.create("test form"));
         form.setIndex(Index.create(1));
         form.setSurvey(survey);
 
@@ -118,13 +118,13 @@ public class SurveyRepositoryTest {
         question.setQuestionID(QuestionID.create(UUID.randomUUID()));
         question.setType(Type.CHECK_BOX);
         question.setRequired(true);
-        question.setIndex(srv.api.com.question.domain.model.Index.create(0));
+        question.setIndex(srv.api.com.survey.domain.model.question.Index.create(0));
         question.setForm(form);
 
         Choice choice = new Choice();
         choice.setChoiceID(ChoiceID.create(UUID.randomUUID()));
-        choice.setLabel(srv.api.com.choice.domain.model.Label.create("test choice"));
-        choice.setIndex(srv.api.com.choice.domain.model.Index.create(0));
+        choice.setLabel(srv.api.com.survey.domain.model.choice.Label.create("test choice"));
+        choice.setIndex(srv.api.com.survey.domain.model.choice.Index.create(0));
         choice.setQuestion(question);
 
         Set<Choice> choices = new HashSet<>();

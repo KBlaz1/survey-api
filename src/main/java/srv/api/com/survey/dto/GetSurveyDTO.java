@@ -1,15 +1,12 @@
 package srv.api.com.survey.dto;
 
-import srv.api.com.form.domain.model.Form;
-import srv.api.com.form.dto.GetFormDTO;
-import srv.api.com.question.dto.GetQuestionDTO;
+import srv.api.com.survey.dto.form.GetFormDTO;
 import srv.api.com.survey.domain.model.Survey;
 import srv.api.com.survey.domain.model.SurveyID;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * DTO class for handling the Survey class used in GET requests
